@@ -29,9 +29,9 @@ function App() {
             <PrivateRoute exact path="/dashboard">
               <Dashboard></Dashboard>
             </PrivateRoute>
-            <Route exact path="/:courseID/:courseParam/:moduleID/:videoID">
+            <PrivateRoute exact path="/:courseID/:courseParam/:moduleID/:videoID">
               <CourseContent></CourseContent>
-            </Route>
+            </PrivateRoute>
           </Switch>
         </Router>
       </ContextProvider>
