@@ -106,7 +106,8 @@ const CourseContent = () => {
         }
         if (vID == 1 && mID != 1) {
             const mID = parseInt(moduleID.substring(6)) - 1;
-            const vID = 3;
+            const module = course.modules.find(module => module.key == mID);
+            const vID = module?.videos.length;
             history.push(`/${courseID}/${courseParam}/module${mID}/video${vID}`);
             window.location.reload();
         }

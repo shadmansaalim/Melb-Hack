@@ -26,7 +26,8 @@ const VideoButton = ({ moduleID, course, video }) => {
             }
             if (vID == 1 && mID != 1) {
                 mID = mID - 1;
-                vID = 3;
+                const module = course.modules.find(module => module.key == mID);
+                vID = module?.videos.length;
             }
             const data = {
                 cID,

@@ -177,6 +177,7 @@ const useFirebase = () => {
                         { key: 1, completed: false },
                         { key: 2, completed: false },
                         { key: 3, completed: false },
+                        { key: 4, completed: false },
 
                     ]
                 },
