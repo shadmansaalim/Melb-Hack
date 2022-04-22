@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col, Card, ProgressBar, Container } from 'react-bootstrap';
 import cardImage from '../../assets/card-image.png';
 
+
 const Dashboard = () => {
     const now = 60;
     return (
