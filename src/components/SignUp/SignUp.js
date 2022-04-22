@@ -72,8 +72,11 @@ const SignUp = () => {
 
                             <div className="text-center  mt-4 pt-2">
                                 <button className="btn btn-success w-100" type="submit">Sign Up <FontAwesomeIcon icon={faSignInAlt} /></button>
-                                <p className="small fw-bold mt-2 pt-1 mb-0">Already have an account? <Link to="/login"
-                                    className="link-danger">Login</Link></p>
+                                <p className="small fw-bold mt-2 pt-1 mb-0">Already have an account? <a href="/login" type="button" onClick={() => {
+                                    history.replace('/login')
+                                    window.location.reload();
+                                }}
+                                    className="link-danger">Login</a></p>
 
                             </div>
                         </form>
