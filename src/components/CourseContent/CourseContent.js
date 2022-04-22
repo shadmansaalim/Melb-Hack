@@ -7,6 +7,7 @@ import Header from '../Header/Header';
 
 const courses = [
     {
+        courseID: 1,
         name: 'C Programming Fundamentals',
         param: 'c-programming-fundamentals',
         modules: [
@@ -41,6 +42,7 @@ const courses = [
         ]
     },
     {
+        courseID: 2,
         name: 'Web Development Course',
         param: 'web-development-course',
         modules: [
@@ -80,7 +82,7 @@ const courses = [
 
 
 const CourseContent = () => {
-    const { courseParam, moduleID, videoID } = useParams();
+    const { courseID, courseParam, moduleID, videoID } = useParams();
     const mID = parseInt(moduleID.substring(6));
     const vID = parseInt(videoID.substring(5));
     const [course, setCourse] = useState({});
@@ -111,14 +113,14 @@ const CourseContent = () => {
     const moveNextVideo = () => {
         if (vID != video_nums) {
             const vID = parseInt(videoID.substring(5)) + 1;
-            history.push(`/course/${courseParam}/${moduleID}/video${vID}`);
+            history.push(`/${courseID}/${courseParam}/${moduleID}/video${vID}`);
             window.location.reload();
         }
         else {
             if (mID != modules_num) {
                 const mID = parseInt(moduleID.substring(6)) + 1;
                 const vID = 1;
-                history.push(`/course/${courseParam}/module${mID}/video${vID}`);
+                history.push(`/${courseID}/${courseParam}/module${mID}/video${vID}`);
                 window.location.reload();
             }
         }
@@ -127,13 +129,13 @@ const CourseContent = () => {
     const movePreviousVideo = () => {
         if (vID != 1) {
             const vID = parseInt(videoID.substring(5)) - 1;
-            history.push(`/course/${courseParam}/${moduleID}/video${vID}`);
+            history.push(`/${courseID}/${courseParam}/${moduleID}/video${vID}`);
             window.location.reload();
         }
         if (vID == 1 && mID != 1) {
             const mID = parseInt(moduleID.substring(6)) - 1;
             const vID = 3;
-            history.push(`/course/${courseParam}/module${mID}/video${vID}`);
+            history.push(`/${courseID}/${courseParam}/module${mID}/video${vID}`);
             window.location.reload();
         }
 
@@ -183,7 +185,7 @@ const CourseContent = () => {
                                             course?.modules?.map(module => <Module
                                                 key={module.key}
                                                 module={module}
-                                                courseParam={courseParam}
+                                                course={course}
                                             />)
                                         }
 

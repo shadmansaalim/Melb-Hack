@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import VideoButton from '../VideoButton/VideoButton';
 
-const Module = ({ module, courseParam }) => {
+const Module = ({ module, course }) => {
     const [toggled, setToggled] = useState(false);
     const { key, title, videos } = module;
 
@@ -35,7 +35,7 @@ const Module = ({ module, courseParam }) => {
                         videos.map(video => <VideoButton
                             key={video.key}
                             moduleID={key}
-                            courseParam={courseParam}
+                            course={course}
                             video={video}
                         />)
                     }

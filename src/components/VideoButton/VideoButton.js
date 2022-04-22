@@ -3,12 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlay } from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
 
-const VideoButton = ({ moduleID, courseParam, video }) => {
+const VideoButton = ({ moduleID, course, video }) => {
+    const { courseID, param } = course;
     const { key, name, duration } = video;
     const history = useHistory();
 
     const openModule = () => {
-        history.push(`/course/${courseParam}/module${moduleID}/video${key}`);
+        history.push(`/${courseID}/${param}/module${moduleID}/video${key}`);
         window.location.reload();
     }
 

@@ -4,11 +4,11 @@ import { useHistory } from 'react-router-dom';
 import cardImage from '../../assets/card-image.png';
 
 const Course = ({ course }) => {
-    const { name, param } = course;
+    const { name, param, courseID } = course;
     const history = useHistory();
 
     const continueCourse = () => {
-        history.push(`/course/${param}/module1/video1`);
+        history.push(`/course${courseID}/${param}/module1/video1`);
         window.location.reload();
     }
     return (

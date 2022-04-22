@@ -24,7 +24,7 @@ function App() {
           <Route path="/dashboard">
             <Dashboard></Dashboard>
           </Route>
-          <Route exact path="/course/:courseParam/:moduleID/:videoID">
+          <Route exact path="/:courseID/:courseParam/:moduleID/:videoID">
             <CourseContent></CourseContent>
           </Route>
         </Switch>
