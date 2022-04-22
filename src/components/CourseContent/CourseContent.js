@@ -12,7 +12,7 @@ import { faUpload } from '@fortawesome/free-solid-svg-icons';
 
 const CourseContent = () => {
     const { courseID, courseParam, moduleID, videoID } = useParams();
-    const user = useAuth();
+    const { user } = useAuth();
 
 
     const cID = parseInt(courseID.substring(6));
@@ -22,7 +22,8 @@ const CourseContent = () => {
 
     const [course, setCourse] = useState({});
     const [module, setModule] = useState({});
-    const [currentVideo, setCurrentVideo] = useState({})
+    const [currentVideo, setCurrentVideo] = useState({});
+    const [videoCompleted, setVideoCompleted] = useState(false);
 
     const [modalShow, setModalShow] = useState(false);
 
@@ -46,7 +47,26 @@ const CourseContent = () => {
                 setCurrentVideo(video);
             });
 
-    }, [courseID, courseParam, moduleID, videoID])
+        const data = {
+            cID,
+            mID,
+            vID
+        }
+        if (user.email) {
+            fetch(`http://localhost:8000/user/${user.email}/completed`, {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(res => res.json())
+                .then(status => {
+                    setVideoCompleted(status)
+                });
+        }
+
+    }, [user.email, courseID, courseParam, moduleID, videoID])
 
 
     const moveNextVideo = () => {
