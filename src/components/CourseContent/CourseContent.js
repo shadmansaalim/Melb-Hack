@@ -24,7 +24,6 @@ const CourseContent = () => {
     const [course, setCourse] = useState({});
     const [module, setModule] = useState({});
     const [currentVideo, setCurrentVideo] = useState({});
-    const [previousVideoCompleted, setPreviousVideoCompleted] = useState(false);
 
     const [modalShow, setModalShow] = useState(false);
 
@@ -47,38 +46,8 @@ const CourseContent = () => {
                 const video = module.videos.find(video => video.key == vID);
                 setModule(module);
                 setCurrentVideo(video);
-            });
-
-        let temp_mID = mID;
-        let temp_vID = vID;
-
-        if (temp_vID != 1) {
-            temp_vID = temp_vID - 1;
-        }
-        if (temp_vID == 1 && temp_mID != 1) {
-            temp_mID = temp_mID - 1;
-            temp_vID = 3;
-        }
-        const data = {
-            cID: cID,
-            mID: temp_mID,
-            vID: temp_vID
-        }
-        if (user.email) {
-            fetch(`http://localhost:8000/user/${user.email}/completed`, {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(data)
             })
-                .then(res => res.json())
-                .then(status => {
-                    setPreviousVideoCompleted(status);
-                    setIsLoading(false);
-                });
-        }
-
+            .finally(() => setIsLoading(false));
 
     }, [courseID, courseParam, moduleID, videoID])
 
@@ -216,7 +185,6 @@ const CourseContent = () => {
                                                             key={module.key}
                                                             module={module}
                                                             course={course}
-                                                            previousVideoCompleted={previousVideoCompleted}
                                                         />)
                                                     }
 

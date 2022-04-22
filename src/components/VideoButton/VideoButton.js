@@ -4,7 +4,7 @@ import { faLock, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 
-const VideoButton = ({ previousVideoCompleted, moduleID, course, video }) => {
+const VideoButton = ({ moduleID, course, video }) => {
     const { user } = useAuth();
     const { courseID, param } = course;
     const { key, name, duration } = video;
@@ -12,11 +12,44 @@ const VideoButton = ({ previousVideoCompleted, moduleID, course, video }) => {
     const history = useHistory();
 
     const openModule = () => {
-        if (previousVideoCompleted) {
+        if (currentVideoCompleted) {
             history.push(`/course${courseID}/${param}/module${moduleID}/video${key}`);
             window.location.reload();
         }
+        else {
+            const cID = courseID;
+            let mID = moduleID;
+            let vID = key;
+
+            if (vID != 1) {
+                vID = vID - 1;
+            }
+            if (vID == 1 && mID != 1) {
+                mID = mID - 1;
+                vID = 3;
+            }
+            const data = {
+                cID,
+                mID,
+                vID
+            }
+            fetch(`http://localhost:8000/user/${user.email}/completed`, {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(res => res.json())
+                .then(status => {
+                    if (status) {
+                        history.push(`/course${courseID}/${param}/module${moduleID}/video${key}`);
+                        window.location.reload();
+                    }
+                });
+        }
     }
+
 
     useEffect(() => {
         const cID = courseID;

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import VideoButton from '../VideoButton/VideoButton';
 
-const Module = ({ module, course, previousVideoCompleted }) => {
+const Module = ({ module, course }) => {
     const [toggled, setToggled] = useState(false);
     const { key, title, videos } = module;
 
@@ -34,7 +34,6 @@ const Module = ({ module, course, previousVideoCompleted }) => {
                     {
                         videos.map(video => <VideoButton
                             key={video.key}
-                            previousVideoCompleted={previousVideoCompleted}
                             moduleID={key}
                             course={course}
                             video={video}
