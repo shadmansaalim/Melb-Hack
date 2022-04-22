@@ -36,3 +36,24 @@
     transform: rotate(360deg);
   }
 }
+
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap');
+
+.btn-success{
+  background-color: #006B5A !important;
+}
+.btn-success:hover{
+  background-color: #014d40 !important;
+}
+
+.btn-outline-success{
+  border-color: #006B5A !important;
+}
+.btn-outline-success:hover{
+  background-color: #006B5A !important;
+}
+
+body{
+  font-family: 'Space Grotesk', sans-serif !important;
+}
