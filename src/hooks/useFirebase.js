@@ -27,14 +27,17 @@ const useFirebase = () => {
                 setUser(newUser);
 
 
+                //Add user to db
+                saveUserToDb(email, name, 'POST');
 
                 // Send name to firebase
                 updateProfile(auth.currentUser, {
                     displayName: name
                 }).then(() => {
+                    swal("Account Created Successfully!", "You can now purchase courses and continue quality learning with EModule.", "success");
                     history.replace('/dashboard')
                     window.location.reload();
-                    swal("Account Created Successfully!", "You can now purchase courses and continue quality learning with EModule.", "success");
+
                 }).catch((error) => {
                     console.log(error.message)
                 });
@@ -80,6 +83,8 @@ const useFirebase = () => {
         signInWithPopup(auth, googleProvider)
             .then((result) => {
                 const user = result.user;
+                //Add user to db
+                saveUserToDb(user.email, user.displayName, 'PUT');
                 history.replace('/dashboard')
                 window.location.reload();
 
@@ -95,9 +100,10 @@ const useFirebase = () => {
         setIsLoading(true);
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
+                toast.success(`Welcome back ${auth.currentUser.displayName.split(' ')[0]}`)
                 history.replace('/dashboard')
                 window.location.reload();
-                toast.success(`Welcome back ${auth.currentUser.displayName.split(' ')[0]}`)
+
 
             })
             .catch((error) => {
@@ -119,6 +125,21 @@ const useFirebase = () => {
         })
             .finally(() => setIsLoading(false));
     }
+
+
+    //Function to add users to database MONGO DB
+    const saveUserToDb = (email, displayName, method) => {
+        const user = { email, displayName };
+        fetch('http://localhost:8000/users', {
+            method: method,
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then()
+    }
+
 
 
     return {

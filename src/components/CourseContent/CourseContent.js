@@ -10,6 +10,8 @@ const CourseContent = () => {
     const cID = parseInt(courseID.substring(6));
     const mID = parseInt(moduleID.substring(6));
     const vID = parseInt(videoID.substring(5));
+
+
     const [course, setCourse] = useState({});
     const [module, setModule] = useState({});
     const [currentVideo, setCurrentVideo] = useState({})

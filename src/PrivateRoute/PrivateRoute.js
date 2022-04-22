@@ -18,9 +18,17 @@ const PrivateRoute = ({ children, ...rest }) => {
     if (!user.email) {
         history.replace('/login');
         window.location.reload();
+        return;
     }
     else {
-        return (children);
+        return (
+            <Route
+                {...rest}
+                render={() => children}
+            >
+
+            </Route>
+        );
     }
 
 };
