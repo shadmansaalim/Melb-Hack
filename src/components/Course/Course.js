@@ -2,6 +2,7 @@ import React from 'react';
 import { Col, Card, ProgressBar } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import cardImage from '../../assets/card-image.png';
+import './Course.css';
 
 const Course = ({ course }) => {
     const { name, param, courseID } = course;
@@ -13,8 +14,8 @@ const Course = ({ course }) => {
     }
     return (
         <Col>
-            <Card className="rounded-3">
-                <Card.Img variant="top" src={cardImage} />
+            <Card className="rounded-3 course">
+                <Card.Img className="course-img" variant="top" src={course.image ? course.image : cardImage} />
                 <Card.Body>
                     <Card.Title className="text-start">{name}</Card.Title>
                     <Card.Text>

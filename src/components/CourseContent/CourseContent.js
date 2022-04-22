@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import './CourseContent.scss';
-import { Row, Col, ProgressBar, Container, Accordion } from 'react-bootstrap';
+import { Row, Col, ProgressBar, Container, Accordion, Modal } from 'react-bootstrap';
 import Module from '../Module/Module';
 import { useHistory, useParams } from 'react-router-dom';
 import Header from '../Header/Header';
+import useAuth from '../../hooks/useAuth';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUpload } from '@fortawesome/free-solid-svg-icons';
+
+
 
 const CourseContent = () => {
     const { courseID, courseParam, moduleID, videoID } = useParams();
+    const user = useAuth();
+
+
     const cID = parseInt(courseID.substring(6));
     const mID = parseInt(moduleID.substring(6));
     const vID = parseInt(videoID.substring(5));
@@ -15,6 +23,8 @@ const CourseContent = () => {
     const [course, setCourse] = useState({});
     const [module, setModule] = useState({});
     const [currentVideo, setCurrentVideo] = useState({})
+
+    const [modalShow, setModalShow] = useState(false);
 
 
     const video_nums = module?.videos?.length;
@@ -81,7 +91,32 @@ const CourseContent = () => {
                         <Header></Header>
                         <div className="text-start my-5">
                             <Container>
-                                <h2 className="fw-bold">{course.name}</h2>
+                                <div className="d-flex flex-column flex-lg-row justify-content-between align-items-start mb-4">
+                                    <h2 className="fw-bold my-0">{course.name}</h2>
+
+
+
+                                    {/* Instructor Features ONLY */}
+                                    <button onClick={() => setModalShow(true)} className="btn btn-lg add-modules-btn my-0 mt-3 mt-lg-0">Add Modules <FontAwesomeIcon icon={faUpload} /></button>
+
+
+                                    <Modal show={modalShow} fullscreen={true} onHide={() => setModalShow(false)}>
+                                        <Modal.Header closeButton>
+                                            <Modal.Title>{course.name}</Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            <Container>
+                                                {/* Add Module Form */}
+                                            </Container>
+                                        </Modal.Body>
+                                    </Modal>
+
+
+
+
+
+
+                                </div>
                                 <Row>
                                     <Col className="col-12 col-lg-8 mb-4 mb-lg-0">
                                         <iframe
