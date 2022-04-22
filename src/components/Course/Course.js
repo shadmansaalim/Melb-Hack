@@ -3,6 +3,7 @@ import './Course.scss';
 import { Row, Col, ProgressBar, Container, Accordion } from 'react-bootstrap';
 import Module from '../Module/Module';
 import { useHistory, useParams } from 'react-router-dom';
+import Header from '../Header/Header';
 
 const courses = [
     {
@@ -104,6 +105,7 @@ const Course = () => {
 
     return (
         <div>
+            <Header></Header>
             <div className="text-start my-5">
                 <Container>
                     <h2 className="fw-bold">{course.name}</h2>

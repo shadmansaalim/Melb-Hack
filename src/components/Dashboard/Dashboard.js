@@ -1,12 +1,14 @@
 import React from 'react';
 import { Row, Col, Card, ProgressBar, Container } from 'react-bootstrap';
 import cardImage from '../../assets/card-image.png';
+import Header from '../Header/Header';
 
 
 const Dashboard = () => {
     const now = 60;
     return (
         <div>
+            <Header></Header>
             <Container className="my-5" >
                 <Row xs={1} md={2} lg={3} className="g-4 mx-auto container">
                     <Col>

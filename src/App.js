@@ -5,7 +5,6 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import Header from './components/Header/Header';
 import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
 import Dashboard from './components/Dashboard/Dashboard';
@@ -15,7 +14,6 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Header></Header>
         <Switch>
           <Route path="/login">
             <Login></Login>
