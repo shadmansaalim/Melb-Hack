@@ -11,6 +11,7 @@ import { faUpload } from '@fortawesome/free-solid-svg-icons';
 
 
 const CourseContent = () => {
+    const [isLoading, setIsLoading] = useState(true);
     const { courseID, courseParam, moduleID, videoID } = useParams();
     const { user } = useAuth();
 
@@ -23,7 +24,7 @@ const CourseContent = () => {
     const [course, setCourse] = useState({});
     const [module, setModule] = useState({});
     const [currentVideo, setCurrentVideo] = useState({});
-    const [videoCompleted, setVideoCompleted] = useState(false);
+    const [previousVideoCompleted, setPreviousVideoCompleted] = useState(false);
 
     const [modalShow, setModalShow] = useState(false);
 
@@ -36,6 +37,7 @@ const CourseContent = () => {
 
 
     useEffect(() => {
+
         fetch(`http://localhost:8000/course/${cID}`)
             .then(res => res.json())
             .then(data => {
@@ -47,10 +49,20 @@ const CourseContent = () => {
                 setCurrentVideo(video);
             });
 
+        let temp_mID = mID;
+        let temp_vID = vID;
+
+        if (temp_vID != 1) {
+            temp_vID = temp_vID - 1;
+        }
+        if (temp_vID == 1 && temp_mID != 1) {
+            temp_mID = temp_mID - 1;
+            temp_vID = 3;
+        }
         const data = {
-            cID,
-            mID,
-            vID
+            cID: cID,
+            mID: temp_mID,
+            vID: temp_vID
         }
         if (user.email) {
             fetch(`http://localhost:8000/user/${user.email}/completed`, {
@@ -62,25 +74,57 @@ const CourseContent = () => {
             })
                 .then(res => res.json())
                 .then(status => {
-                    setVideoCompleted(status)
+                    setPreviousVideoCompleted(status);
+                    setIsLoading(false);
                 });
         }
 
-    }, [user.email, courseID, courseParam, moduleID, videoID])
+
+    }, [courseID, courseParam, moduleID, videoID])
 
 
     const moveNextVideo = () => {
+        const data = {
+            cID,
+            mID,
+            vID
+        };
         if (vID != video_nums) {
-            const vID = parseInt(videoID.substring(5)) + 1;
-            history.push(`/${courseID}/${courseParam}/${moduleID}/video${vID}`);
-            window.location.reload();
+            fetch(`http://localhost:8000/user/${user.email}/completed`, {
+                method: 'PUT',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(res => res.json())
+                .then(result => {
+                    if (result.modifiedCount) {
+                        const vID = parseInt(videoID.substring(5)) + 1;
+                        history.push(`/${courseID}/${courseParam}/${moduleID}/video${vID}`);
+                        window.location.reload();
+                    }
+                });
         }
         else {
             if (mID != modules_num) {
-                const mID = parseInt(moduleID.substring(6)) + 1;
-                const vID = 1;
-                history.push(`/${courseID}/${courseParam}/module${mID}/video${vID}`);
-                window.location.reload();
+                fetch(`http://localhost:8000/user/${user.email}/completed`, {
+                    method: 'PUT',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(res => res.json())
+                    .then(result => {
+                        if (result.modifiedCount) {
+                            const mID = parseInt(moduleID.substring(6)) + 1;
+                            const vID = 1;
+                            history.push(`/${courseID}/${courseParam}/module${mID}/video${vID}`);
+                            window.location.reload();
+                        }
+                    });
+
             }
         }
     }
@@ -102,10 +146,12 @@ const CourseContent = () => {
 
 
 
+
+
     return (
         <div>
             {
-                course.name && module.videos && currentVideo.link
+                !isLoading
                     ?
                     <div>
                         <Header></Header>
@@ -130,10 +176,6 @@ const CourseContent = () => {
                                             </Container>
                                         </Modal.Body>
                                     </Modal>
-
-
-
-
 
 
                                 </div>
@@ -174,6 +216,7 @@ const CourseContent = () => {
                                                             key={module.key}
                                                             module={module}
                                                             course={course}
+                                                            previousVideoCompleted={previousVideoCompleted}
                                                         />)
                                                     }
 

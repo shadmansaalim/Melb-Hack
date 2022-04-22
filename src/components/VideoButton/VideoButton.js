@@ -1,24 +1,59 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlay } from '@fortawesome/free-solid-svg-icons';
+import { faLock, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
-const VideoButton = ({ moduleID, course, video }) => {
+const VideoButton = ({ previousVideoCompleted, moduleID, course, video }) => {
+    const { user } = useAuth();
     const { courseID, param } = course;
     const { key, name, duration } = video;
+    const [currentVideoCompleted, setCurrentVideoCompleted] = useState(false);
     const history = useHistory();
 
     const openModule = () => {
-        history.push(`/course${courseID}/${param}/module${moduleID}/video${key}`);
-        window.location.reload();
+        if (previousVideoCompleted) {
+            history.push(`/course${courseID}/${param}/module${moduleID}/video${key}`);
+            window.location.reload();
+        }
     }
 
+    useEffect(() => {
+        const cID = courseID;
+        let mID = moduleID;
+        let vID = key;
+
+        const data = {
+            cID,
+            mID,
+            vID
+        }
+        if (user.email) {
+            fetch(`http://localhost:8000/user/${user.email}/completed`, {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(res => res.json())
+                .then(status => {
+                    setCurrentVideoCompleted(status)
+                })
+        }
+    }, [user.email, course, moduleID, video])
 
 
     return (
         <button className="video-btn" onClick={openModule}>
             <span className="d-flex align-items-center">
-                <FontAwesomeIcon color="#2A4A5F" className="me-1" icon={faCirclePlay} />
+                {
+                    currentVideoCompleted
+                        ?
+                        <FontAwesomeIcon color="#006B5A" className="me-1" icon={faCircleCheck} />
+                        :
+                        <FontAwesomeIcon color="#2A4A5F" className="me-1" icon={faLock} />
+                }
                 <p className="mb-0">{name}</p>
             </span>
             <span>{duration}m</span>
