@@ -88,6 +88,13 @@ const Course = () => {
     const [currentVideo, setCurrentVideo] = useState({})
 
 
+    const video_nums = module?.videos?.length;
+    const modules_num = course?.modules?.length;
+
+
+    const history = useHistory();
+
+
     useEffect(() => {
         const course = courses.find(course => course.param == courseParam);
         const modules = course.modules;
@@ -100,6 +107,37 @@ const Course = () => {
 
     }, [courseParam, moduleID, videoID])
 
+
+    const moveNextVideo = () => {
+        if (vID != video_nums) {
+            const vID = parseInt(videoID.substring(5)) + 1;
+            history.push(`/course/${courseParam}/${moduleID}/video${vID}`);
+            window.location.reload();
+        }
+        else {
+            if (mID != modules_num) {
+                const mID = parseInt(moduleID.substring(6)) + 1;
+                const vID = 1;
+                history.push(`/course/${courseParam}/module${mID}/video${vID}`);
+                window.location.reload();
+            }
+        }
+    }
+
+    const movePreviousVideo = () => {
+        if (vID != 1) {
+            const vID = parseInt(videoID.substring(5)) - 1;
+            history.push(`/course/${courseParam}/${moduleID}/video${vID}`);
+            window.location.reload();
+        }
+        if (vID == 1 && mID != 1) {
+            const mID = parseInt(moduleID.substring(6)) - 1;
+            const vID = 3;
+            history.push(`/course/${courseParam}/module${mID}/video${vID}`);
+            window.location.reload();
+        }
+
+    }
 
 
 
@@ -117,10 +155,14 @@ const Course = () => {
                             <div className="mt-3 d-flex flex-lg-row flex-column justify-content-between align-items-start">
                                 <h4 className=" mb-0">{currentVideo.name}</h4>
                                 <div className="mt-2 mt-lg-0">
-                                    <button className="btn btn-outline-success rounded-pill me-2 video-control-btns">
+                                    <button className="btn btn-outline-success rounded-pill me-2 video-control-btns"
+                                        onClick={movePreviousVideo}
+                                    >
                                         Previous
                                     </button>
-                                    <button className="btn btn-success rounded-pill video-control-btns">
+                                    <button className="btn btn-success rounded-pill video-control-btns"
+                                        onClick={moveNextVideo}
+                                    >
                                         Next
                                     </button>
                                 </div>
