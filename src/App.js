@@ -10,21 +10,25 @@ import SignUp from './components/SignUp/SignUp';
 import Dashboard from './components/Dashboard/Dashboard';
 import CourseContent from './components/CourseContent/CourseContent';
 import ContextProvider from './context/ContextProvider';
+import PrivateRoute from './PrivateRoute/PrivateRoute';
 function App() {
   return (
     <div className="App">
       <ContextProvider>
         <Router>
           <Switch>
-            <Route path="/login">
+            <Route exact path="/login">
               <Login></Login>
             </Route>
-            <Route path="/signup">
+            <Route exact path="/signup">
               <SignUp></SignUp>
             </Route>
-            <Route path="/dashboard">
+            <PrivateRoute exact path="/">
               <Dashboard></Dashboard>
-            </Route>
+            </PrivateRoute>
+            <PrivateRoute exact path="/dashboard">
+              <Dashboard></Dashboard>
+            </PrivateRoute>
             <Route exact path="/:courseID/:courseParam/:moduleID/:videoID">
               <CourseContent></CourseContent>
             </Route>
