@@ -8,7 +8,7 @@ import {
 import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
 import Dashboard from './components/Dashboard/Dashboard';
-import Course from './components/Course/Course';
+import CourseContent from './components/CourseContent/CourseContent';
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
             <Dashboard></Dashboard>
           </Route>
           <Route exact path="/course/:courseParam/:moduleID/:videoID">
-            <Course></Course>
+            <CourseContent></CourseContent>
           </Route>
         </Switch>
       </Router>
