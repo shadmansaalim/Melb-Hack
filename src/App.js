@@ -9,26 +9,28 @@ import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
 import Dashboard from './components/Dashboard/Dashboard';
 import CourseContent from './components/CourseContent/CourseContent';
-
+import ContextProvider from './context/ContextProvider';
 function App() {
   return (
     <div className="App">
-      <Router>
-        <Switch>
-          <Route path="/login">
-            <Login></Login>
-          </Route>
-          <Route path="/signup">
-            <SignUp></SignUp>
-          </Route>
-          <Route path="/dashboard">
-            <Dashboard></Dashboard>
-          </Route>
-          <Route exact path="/:courseID/:courseParam/:moduleID/:videoID">
-            <CourseContent></CourseContent>
-          </Route>
-        </Switch>
-      </Router>
+      <ContextProvider>
+        <Router>
+          <Switch>
+            <Route path="/login">
+              <Login></Login>
+            </Route>
+            <Route path="/signup">
+              <SignUp></SignUp>
+            </Route>
+            <Route path="/dashboard">
+              <Dashboard></Dashboard>
+            </Route>
+            <Route exact path="/:courseID/:courseParam/:moduleID/:videoID">
+              <CourseContent></CourseContent>
+            </Route>
+          </Switch>
+        </Router>
+      </ContextProvider>
     </div>
   );
 }

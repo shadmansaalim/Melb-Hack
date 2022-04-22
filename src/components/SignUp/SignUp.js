@@ -1,9 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
+import swal from 'sweetalert';
 
 const SignUp = () => {
+    const [signUpData, setSignUpData] = useState({});
+    const { registerUser } = useAuth();
+
+    const history = useHistory();
+
+
+    const handleOnBlur = e => {
+        const field = e.target.name;
+        const value = e.target.value;
+        const newSignUpData = { ...signUpData };
+        newSignUpData[field] = value;
+        setSignUpData(newSignUpData);
+    }
+
+    const handleSignUpSubmit = e => {
+        if (signUpData.password !== signUpData.password2) {
+            swal("Passwords doesn't match!", "Please check password and then try again", "error");
+        }
+        else {
+            registerUser(signUpData.name, signUpData.email, signUpData.password, history);
+            e.target.reset();
+        }
+
+        e.preventDefault();
+
+    }
     return (
         <div className="bg">
             <div className="container">
@@ -12,27 +40,31 @@ const SignUp = () => {
                 </div> */}
                     <div className="col-11 col-md-8 col-lg-7 col-xl-4 shadow-lg p-3 p-md-5 rounded-3 mx-auto mx-xl-0 ms-xl-auto bg-white">
                         <h1 className="text-start login-title mb-5 fw-bold">Sign Up</h1>
-                        <form>
+                        <form onSubmit={handleSignUpSubmit}>
                             <div className="form-floating mb-3">
                                 <input
+                                    onBlur={handleOnBlur}
                                     name="name"
                                     type="text" className="form-control" id="floatingSignUpName" placeholder="Your Name" />
                                 <label htmlFor="floatingSignUpName">Your Name</label>
                             </div>
                             <div className="form-floating mb-3">
                                 <input
+                                    onBlur={handleOnBlur}
                                     name="email"
                                     type="email" className="form-control" id="floatingLoginEmail" placeholder="name@example.com" />
                                 <label htmlFor="floatingSignUpEmail">Email Address</label>
                             </div>
                             <div className="form-floating mb-3">
                                 <input
-                                    name="password1"
+                                    onBlur={handleOnBlur}
+                                    name="password"
                                     type="password" className="form-control" id="floatingSignUpPassword1" placeholder="Password" />
-                                <label htmlFor="floatingSignUpPassword1">Password</label>
+                                <label htmlFor="floatingSignUpPassword">Password</label>
                             </div>
                             <div className="form-floating mb-4">
                                 <input
+                                    onBlur={handleOnBlur}
                                     name="password2"
                                     type="password" className="form-control" id="floatingSignUpPassword2" placeholder="Confirm Password" />
                                 <label htmlFor="floatingSignUpPassword2">Confirm Password</label>

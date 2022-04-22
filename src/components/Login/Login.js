@@ -1,10 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
 const Login = () => {
+    const [loginData, setLoginData] = useState({});
+    const { loginUser, signInWithGoogle } = useAuth();
+
+
+    const history = useHistory();
+
+    const handleOnBlur = e => {
+        const field = e.target.name;
+        const value = e.target.value;
+        const newLoginData = { ...loginData };
+        newLoginData[field] = value;
+        setLoginData(newLoginData);
+    }
+
+    const handleLoginSubmit = e => {
+        loginUser(loginData.email, loginData.password, history);
+        e.preventDefault();
+    }
+
     return (
         <div className="bg">
             <div className="container">
@@ -13,15 +33,17 @@ const Login = () => {
                     </div> */}
                     <div className="col-11 col-md-8 col-lg-7 col-xl-4 shadow-lg p-3 p-md-5 rounded-3 mx-auto mx-xl-0 ms-xl-auto bg-white">
                         <h1 className="text-start login-title mb-5 fw-bold">Login</h1>
-                        <form>
+                        <form onSubmit={handleLoginSubmit}>
                             <div className="form-floating mb-3">
                                 <input
+                                    onBlur={handleOnBlur}
                                     name="email"
                                     type="email" className="form-control" id="floatingLoginEmail" placeholder="name@example.com" />
                                 <label htmlFor="floatingLoginEmail">Email address</label>
                             </div>
                             <div className="form-floating mb-4">
                                 <input
+                                    onBlur={handleOnBlur}
                                     name="password"
                                     type="password" className="form-control" id="floatingLoginPassword" placeholder="Password" />
                                 <label htmlFor="floatingLoginPassword">Password</label>
@@ -54,7 +76,7 @@ const Login = () => {
                                     <i className="fab fa-facebook-f"></i>
                                 </button>
 
-                                <button type="button" className="btn btn-outline-success rounded-circle mx-1">
+                                <button onClick={() => signInWithGoogle(history)} type="button" className="btn btn-outline-success rounded-circle mx-1">
                                     <i className="fab fa-google"></i>
                                 </button>
 
