@@ -9,7 +9,7 @@ const VideoButton = ({ moduleID, course, video }) => {
     const history = useHistory();
 
     const openModule = () => {
-        history.push(`/${courseID}/${param}/module${moduleID}/video${key}`);
+        history.push(`/course${courseID}/${param}/module${moduleID}/video${key}`);
         window.location.reload();
     }
 
