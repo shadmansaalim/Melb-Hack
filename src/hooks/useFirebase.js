@@ -12,6 +12,7 @@ initializeAuthentication();
 toast.configure()
 
 const useFirebase = () => {
+    const [instructor, setInstructor] = useState(false);
     const [user, setUser] = useState({})
     const [isLoading, setIsLoading] = useState(true);
     const googleProvider = new GoogleAuthProvider();
@@ -56,22 +57,28 @@ const useFirebase = () => {
         onAuthStateChanged(auth, (user) => {
             setIsLoading(true);
             if (user) {
+                setUser(user);
                 getIdToken(user)
                     .then(token => {
-                        console.log(user);
                         localStorage.setItem('token', token)
-                        setUser(user);
+
+                    })
+                fetch(`http://localhost:8000/users/${user.email}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.instructor) {
+                            setInstructor(true);
+                        }
                         setIsLoading(false);
                     })
-
-
             } else {
+                setInstructor(false);
                 setUser({})
                 setIsLoading(false);
             }
 
         });
-    }, [auth])
+    }, [auth, user.email])
 
 
 
@@ -119,6 +126,7 @@ const useFirebase = () => {
     const logOut = () => {
         signOut(auth).then(() => {
             // Sign-out successful.
+            setInstructor(false);
             setUser({});
         }).catch((error) => {
             // An error happened.
@@ -213,6 +221,7 @@ const useFirebase = () => {
 
     return {
         user,
+        instructor,
         isLoading,
         registerUser,
         loginUser,

@@ -12,16 +12,9 @@ import swal from 'sweetalert';
 
 
 const CourseContent = () => {
-    // ! this may break something
-    // const [toggled, setToggled] = useState(false);
-    // const {key} = CourseContent;
-    // const decoratedOnClick = useAccordionButton(key, () => {
-    //     console.log('totally custom!', key)
-    // });
-
     const [isLoading, setIsLoading] = useState(true);
     const { courseID, courseParam, moduleID, videoID } = useParams();
-    const { user } = useAuth();
+    const { user, instructor } = useAuth();
 
 
     const cID = parseInt(courseID.substring(6));
@@ -151,7 +144,7 @@ const CourseContent = () => {
 
     const handlePublishModule = (e) => {
         e.preventDefault();
-        if (user?.role == 'instructor') {
+        if (instructor) {
             instructorVideos.forEach((video, index) => {
                 video.name = video[`video${index + 1}name`];
                 video.link = video[`video${index + 1}link`];
@@ -203,7 +196,7 @@ const CourseContent = () => {
 
                                     {/* Instructor Features ONLY */}
                                     {
-                                        user.role == 'instructor'
+                                        instructor
                                         &&
                                         <>
                                             <button onClick={() => setModalShow(true)} className="btn btn-lg add-modules-btn my-0 mt-3 mt-lg-0">Add Modules <FontAwesomeIcon icon={faUpload} /></button>

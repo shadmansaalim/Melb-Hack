@@ -1,6 +1,6 @@
 import Header from '../Header/Header';
 //import useAuth from '../../hooks/useAuth';
-import { Row, Col, Container} from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
 import './_announcements.scss';
 
 const Announcements = () => {
@@ -33,14 +33,14 @@ const Announcements = () => {
                 <h1>Announcements</h1>
 
                 <Row className="gy-3 gx-3">
-                {data.announcements.map(function(object, i){
-                    return <Col className="col-6 col-lg-6 a-cards">
+                    {data.announcements.map(function (object, i) {
+                        return <Col className="col-6 col-lg-6 a-cards">
                             <div className="card-wrap">
                                 <div className="a-heading">
                                     <h2>
                                         {object.title}
                                     </h2>
-                                    <div class="instuctor">
+                                    <div className="instuctor">
                                         <img src="https://picsum.photos/64" alt="" />
                                         <h5>{object.instuctor}</h5>
                                     </div>

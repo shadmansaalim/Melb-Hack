@@ -1,9 +1,13 @@
 import React from 'react';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import profile from '../../assets/profile.png';
+import useAuth from '../../hooks/useAuth';
 import './_Header.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faUserTie, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
+    const { user, logOut } = useAuth();
     return (
         <Navbar expand="lg">
             <Container>
@@ -15,12 +19,10 @@ const Header = () => {
                         <Nav.Link className="text-dark me-0 me-lg-2" href="/announcements">Announcements</Nav.Link>
 
                         <NavDropdown title={<img src={profile} alt='' width='40' height='40' />} id="profile-dropdown">
-                            <NavDropdown.Item eventKey="4.0" disabled>Jane Doe</NavDropdown.Item>
-                            <br></br>
-                            <NavDropdown.Item eventKey="4.1">Profile</NavDropdown.Item>
-
-                            <NavDropdown.Item eventKey="4.2">Logout</NavDropdown.Item>
-                            <NavDropdown.Item eventKey="4.3" href="/instructors">Instructors</NavDropdown.Item>
+                            <NavDropdown.Item eventKey="4.0" disabled>{user.displayName}</NavDropdown.Item>
+                            <NavDropdown.Item eventKey="4.1"><FontAwesomeIcon className="me-2" icon={faUser} /> Profile</NavDropdown.Item>
+                            <NavDropdown.Item eventKey="4.3" href="/instructors"><FontAwesomeIcon className="me-2" icon={faUserTie} /> Instructors</NavDropdown.Item>
+                            <NavDropdown.Item onClick={logOut} eventKey="4.2"><FontAwesomeIcon className="me-2" icon={faRightFromBracket} /> Logout</NavDropdown.Item>
                         </NavDropdown>
 
                     </Nav>
