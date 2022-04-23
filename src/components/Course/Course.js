@@ -19,7 +19,7 @@ const Course = ({ course }) => {
 
     useEffect(() => {
         if (!instructor) {
-            fetch(`http://localhost:8000/users/progress/${user.email}/${courseID}`)
+            fetch(`https://still-basin-68719.herokuapp.com/users/progress/${user.email}/${courseID}`)
                 .then(res => res.json())
                 .then(data => setProgress(data))
                 .finally(() => setIsLoading(false));
