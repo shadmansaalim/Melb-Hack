@@ -1,0 +1,37 @@
+#instructors {
+    text-align: left;
+
+    h1 {
+        margin-bottom: 1em;
+    }
+
+    > .container {
+        margin-top: 3em;
+    }
+
+    .a-cards .card-wrap {
+        border-radius: 10px;
+        background: #EDF5F1;
+        padding: 2.5em 2em;
+        transform: translateY(0);
+        transition: all 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        min-height: 100%;
+        
+        &:hover {
+            transform: translateY(-1em);
+        }
+    }
+    
+    .a-heading {
+        gap: 2em;
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.25em;
+        flex-direction: column;
+
+        img {
+            width: 100%;
+            border-radius: 0.4em;
+        }
+    }
+}

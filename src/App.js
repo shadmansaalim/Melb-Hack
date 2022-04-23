@@ -9,6 +9,7 @@ import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
 import Dashboard from './components/Dashboard/Dashboard';
 import Announcements from './components/Announcements/Announcements';
+import Instructors from './components/Instructors/Instructors';
 import CourseContent from './components/CourseContent/CourseContent';
 import ContextProvider from './context/ContextProvider';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
@@ -32,6 +33,9 @@ function App() {
             </PrivateRoute>
             <PrivateRoute exact path="/announcements">
               <Announcements></Announcements>
+            </PrivateRoute>
+            <PrivateRoute exact path="/instructors">
+              <Instructors></Instructors>
             </PrivateRoute>
             <PrivateRoute exact path="/:courseID/:courseParam/:moduleID/:videoID">
               <CourseContent></CourseContent>
