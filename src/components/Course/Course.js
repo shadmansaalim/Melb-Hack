@@ -24,7 +24,10 @@ const Course = ({ course }) => {
                 .then(data => setProgress(data))
                 .finally(() => setIsLoading(false));
         }
-    }, [])
+        else {
+            setIsLoading(false)
+        }
+    }, [instructor])
 
 
     return (
