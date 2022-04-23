@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import './_CourseContent.scss';
-import { Row, Col, ProgressBar, Container, Accordion, Modal , Form, Button, FloatingLabel, Card, useAccordionButton} from 'react-bootstrap';
+import { Row, Col, ProgressBar, Container, Accordion, Modal, Form, Button, FloatingLabel, Card, useAccordionButton } from 'react-bootstrap';
 import Module from '../Module/Module';
 import { useHistory, useParams } from 'react-router-dom';
 import Header from '../Header/Header';
 import useAuth from '../../hooks/useAuth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-import { faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faUpload, faCirclePlay } from '@fortawesome/free-solid-svg-icons';
+import swal from 'sweetalert';
 
 
 
 const CourseContent = () => {
     // ! this may break something
-    /* const [toggled, setToggled] = useState(false);
-    const {key} = CourseContent;
-    const decoratedOnClick = useAccordionButton(key, () => {
-        console.log('totally custom!', key)
-    }); */
+    // const [toggled, setToggled] = useState(false);
+    // const {key} = CourseContent;
+    // const decoratedOnClick = useAccordionButton(key, () => {
+    //     console.log('totally custom!', key)
+    // });
 
     const [isLoading, setIsLoading] = useState(true);
     const { courseID, courseParam, moduleID, videoID } = useParams();
@@ -57,7 +57,6 @@ const CourseContent = () => {
             .finally(() => setIsLoading(false));
 
     }, [courseID, courseParam, moduleID, videoID])
-
 
     const moveNextVideo = () => {
         const data = {
@@ -122,37 +121,70 @@ const CourseContent = () => {
     }
 
     // the data that will be pushed to the database
-    const [addCourse, setVideos] = React.useState({
-        modules: [
-            {
-                moduleName: null,
-                videos: [
-                    {
-                        videoName: null,
-                        video_url: null,
-                        duration: null,
-                    },
-                ],
-            },
+    const [instructorNewModule, setInstructorNewModule] = useState('');
+    const [instructorVideos, setInstructorVideos] = useState([
+        { key: 1 },
+    ]);
 
-        ]
-    });
-    
     const addNewVideo = (e) => {
-        console.log("hello!")
+        const videoNum = instructorVideos.length + 1;
+        const video = { key: videoNum };
+        setInstructorVideos([...instructorVideos, video]);
+    };
 
-        let newVideoTemplate = {
-            videoName: null,
-            video_url: null,
-            duration: null,
+
+    const handleOnBlurModule = (e) => {
+        const value = e.target.value;
+        const module = `Module ${course.modules.length + 1}: ` + value;
+        setInstructorNewModule(module);
+    }
+
+    const handleOnBlur = (e, index) => {
+        const field = e.target.name;
+        const value = e.target.value;
+        const otherVideos = instructorVideos.filter(video => video.key != index);
+        const videoData = instructorVideos.find(video => video.key == index);
+        const newVideoData = { ...videoData };
+        newVideoData[field] = value;
+        setInstructorVideos([...otherVideos, newVideoData]);
+    }
+
+    const handlePublishModule = (e) => {
+        e.preventDefault();
+        if (user?.role == 'instructor') {
+            instructorVideos.forEach((video, index) => {
+                video.name = video[`video${index + 1}name`];
+                video.link = video[`video${index + 1}link`];
+                video.duration = video[`video${index + 1}duration`];
+
+                delete video[`video${index + 1}name`];
+                delete video[`video${index + 1}link`];
+                delete video[`video${index + 1}duration`];
+            })
+            const module = {
+                key: course.modules.length + 1,
+                title: instructorNewModule,
+                videos: instructorVideos
+            }
+
+            fetch(`http://localhost:8000/user/${cID}/new-modules`, {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(module)
+            })
+                .then(res => res.json())
+                .then(result => {
+                    if (result.modifiedCount) {
+                        setModalShow(false);
+                        swal("Module Published Successfully!", "Check module list to see your videos", "success");
+                    }
+                })
+
         }
 
-        let tempAddCourse = addCourse;
-        tempAddCourse.modules[0].videos.push(newVideoTemplate)
-
-        setVideos(tempAddCourse)
-        console.log(addCourse,"dfs")
-    };
+    }
 
 
     return (
@@ -170,86 +202,92 @@ const CourseContent = () => {
 
 
                                     {/* Instructor Features ONLY */}
-                                    <button onClick={() => setModalShow(true)} className="btn btn-lg add-modules-btn my-0 mt-3 mt-lg-0">Add Modules <FontAwesomeIcon icon={faUpload} /></button>
+                                    {
+                                        user.role == 'instructor'
+                                        &&
+                                        <>
+                                            <button onClick={() => setModalShow(true)} className="btn btn-lg add-modules-btn my-0 mt-3 mt-lg-0">Add Modules <FontAwesomeIcon icon={faUpload} /></button>
 
 
-                                    <Modal id="add-module-modal" show={modalShow} fullscreen={true} onHide={() => setModalShow(false)}>
-                                        <Modal.Header closeButton>
-                                            <Modal.Title>{course.name}</Modal.Title>
-                                        </Modal.Header>
-                                        <Modal.Body>
-                                            <Container>
-                                                <Form>
-                                                    <FloatingLabel
-                                                        controlId="module-title"
-                                                        label="Name of module"
-                                                        className="mb-3"
-                                                    >
-                                                        <Form.Control type="text" placeholder="Advance Programming Techniques" />
-                                                    </FloatingLabel>
+                                            <Modal id="add-module-modal" show={modalShow} fullscreen={true} onHide={() => setModalShow(false)}>
+                                                <Modal.Header closeButton>
+                                                    <Modal.Title>{course.name}</Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body>
+                                                    <Container>
+                                                        <Form onSubmit={handlePublishModule}>
+                                                            <FloatingLabel
+                                                                controlId="module-title"
+                                                                label="Name of module"
+                                                                className="mb-3"
+                                                            >
+                                                                <Form.Control
+                                                                    required
+                                                                    onBlur={handleOnBlurModule}
+                                                                    name="title"
+                                                                    type="text" placeholder="Advance Programming Techniques" />
+                                                            </FloatingLabel>
 
-                                                    <div className="course-sidebar">
-                                                        <input id="search" placeholder="Search for video in module"></input>
+                                                            <div className="course-sidebar">
+                                                                <div className="modules">
+                                                                    <Accordion defaultActiveKey="1">
+                                                                        {
+                                                                            instructorVideos.map((video, index) => <Card>
+                                                                                <Card.Header type="button"
+                                                                                    className="d-flex justify-content-between align-items-center video-title" >
+                                                                                    <FloatingLabel
+                                                                                        controlId="video-title"
+                                                                                        label={"Name of video number " + (index + 1)}
+                                                                                    >
+                                                                                        <Form.Control
+                                                                                            required
+                                                                                            onBlur={(e) => handleOnBlur(e, index + 1)}
+                                                                                            name={`video${index + 1}name`}
+                                                                                            type="text"
+                                                                                            placeholder="C++ basics" />
+                                                                                    </FloatingLabel>
+                                                                                </Card.Header>
+                                                                                <Accordion.Collapse eventKey="1">
+                                                                                    <Card.Body>
+                                                                                        <Form.Group className="mb-3" controlId="video-link">
+                                                                                            <Form.Label>Video link</Form.Label>
+                                                                                            <Form.Control
+                                                                                                required
+                                                                                                onBlur={(e) => handleOnBlur(e, index + 1)}
+                                                                                                name={`video${index + 1}link`}
+                                                                                                type="text"
+                                                                                                placeholder="YouTube Embedded Link" />
+                                                                                        </Form.Group>
+                                                                                        <Form.Group className="mb-3" controlId="video-duration">
+                                                                                            <Form.Label>Duration</Form.Label>
+                                                                                            <Form.Control
+                                                                                                required
+                                                                                                onBlur={(e) => handleOnBlur(e, index + 1)}
+                                                                                                name={`video${index + 1}duration`}
+                                                                                                type="text" placeholder="Duration of video" />
+                                                                                        </Form.Group>
 
-                                                        <div className="modules">
-                                                            <Accordion defaultActiveKey="1">
-                                                                {addCourse.modules[0].videos.map(function(object, i){
-                                                                return <Card>
-                                                                    <Card.Header type="button" /* onClick={() => {
-                                                                            decoratedOnClick();
-                                                                        }}  */
-                                                                        className="d-flex justify-content-between align-items-center video-title" >
-                                                                        <FloatingLabel
-                                                                            controlId="video-title"
-                                                                            label={"Name of video number " + (i + 1)}
-                                                                        >
-                                                                            <Form.Control type="text" placeholder="C++ basics" />
-                                                                        </FloatingLabel>
-                                                                        {/* <button
-                                                                            className="btn btn-success">
-                                                                            {
-                                                                                toggled
-                                                                                    ?
-                                                                                    <FontAwesomeIcon icon={faMinus} />
-                                                                                    :
-                                                                                    <FontAwesomeIcon icon={faPlus} />
-                                                                            }
-                                                                        </button> */}
-                                                                    </Card.Header>
-                                                                    <Accordion.Collapse eventKey="1">
-                                                                        <Card.Body>
-                                                                            <Form.Group className="mb-3" controlId="video-link">
-                                                                                <Form.Label>Video link</Form.Label>
-                                                                                <Form.Control type="text" placeholder="YouTube Embedded Link" />
-                                                                            </Form.Group>
-                                                                            <Form.Group className="mb-3" controlId="video-duration">
-                                                                                <Form.Label>Duration</Form.Label>
-                                                                                <Form.Control type="text" placeholder="Duration of video" />
-                                                                            </Form.Group>
+                                                                                    </Card.Body>
+                                                                                </Accordion.Collapse>
+                                                                            </Card>)
+                                                                        }
+                                                                        <Button variant="outline-dark" onClick={addNewVideo}>
+                                                                            Add video <FontAwesomeIcon icon={faCirclePlay} />
+                                                                        </Button>
 
-                                                                        </Card.Body>
-                                                                    </Accordion.Collapse>
-                                                                </Card>
-                                                                })}
-                                                                
-                                                                <Button variant="light" onClick={addNewVideo}>
-                                                                    Add video
-                                                                </Button>
+                                                                    </Accordion>
+                                                                </div>
+                                                            </div>
+                                                            <button className="btn btn-success mt-3" type="submit">
+                                                                Publish Module
+                                                            </button>
+                                                        </Form>
+                                                    </Container>
+                                                </Modal.Body>
+                                            </Modal>
 
-                                                            </Accordion>
-                                                        </div>
-                                                    </div>
-
-                                                    <br></br>
-                                                    <br></br>
-                                                    <Button variant="success" type="submit">
-                                                        Submit
-                                                    </Button>
-                                                </Form>
-                                            </Container>
-                                        </Modal.Body>
-                                    </Modal>
-
+                                        </>
+                                    }
 
                                 </div>
                                 <Row>
