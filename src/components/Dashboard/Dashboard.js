@@ -21,7 +21,7 @@ const Dashboard = () => {
                     <div>
                         <Header></Header>
                         <Container className="my-5" >
-                            <Row xs={1} md={2} lg={3} className="g-4 mx-auto container">
+                            <Row xs={1} md={2} lg={3} className="g-4 mx-auto">
                                 {
                                     courses.map(course => <Course
                                         key={course._id}
