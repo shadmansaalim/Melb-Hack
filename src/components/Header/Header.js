@@ -11,7 +11,7 @@ const Header = () => {
     return (
         <Navbar expand="lg">
             <Container>
-                <Navbar.Brand className="fw-bold" href="/">EModule</Navbar.Brand>
+                <Navbar.Brand className="fw-bold" href="/">BREVEMOD</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto d-flex align-items-center">

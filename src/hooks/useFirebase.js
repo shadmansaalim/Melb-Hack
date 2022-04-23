@@ -35,12 +35,12 @@ const useFirebase = () => {
                 updateProfile(auth.currentUser, {
                     displayName: name
                 }).then(() => {
-                    swal("Account Created Successfully!", "You can now purchase courses and continue quality learning with EModule.", "success");
+                    swal("Account Created Successfully!", "You can now continue courses with BREVEMOD", "success");
                     history.replace('/dashboard')
                     window.location.reload();
 
                 }).catch((error) => {
-                    console.log(error.message)
+
                 });
 
             })
@@ -48,6 +48,9 @@ const useFirebase = () => {
                 console.log(error.message)
                 if (error.message == 'Firebase: Error (auth/email-already-in-use).') {
                     swal("Invalid!", "An account already exists with this email'", "error");
+                }
+                if (error.message == 'Firebase: Password should be at least 6 characters (auth/weak-password).') {
+                    swal("Invalid!", "Password should be at least 6 characters", "error");
                 }
             })
             .finally(() => setIsLoading(false));
