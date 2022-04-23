@@ -221,11 +221,11 @@ const CourseContent = () => {
                                                                         <Card.Body>
                                                                             <Form.Group className="mb-3" controlId="video-link">
                                                                                 <Form.Label>Video link</Form.Label>
-                                                                                <Form.Control type="text" placeholder="Password" />
+                                                                                <Form.Control type="text" placeholder="YouTube Embedded Link" />
                                                                             </Form.Group>
                                                                             <Form.Group className="mb-3" controlId="video-duration">
                                                                                 <Form.Label>Duration</Form.Label>
-                                                                                <Form.Control type="text" placeholder="Password" />
+                                                                                <Form.Control type="text" placeholder="Duration of video" />
                                                                             </Form.Group>
 
                                                                         </Card.Body>
