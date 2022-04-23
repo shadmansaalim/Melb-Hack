@@ -134,77 +134,22 @@ const useFirebase = () => {
             .finally(() => setIsLoading(false));
     }
 
-    const courses = [
-        {
-            courseID: 1,
-            modules: [
-                {
-                    key: 1,
-                    videos: [
-                        { key: 1, completed: false },
-                        { key: 2, completed: false },
-                        { key: 3, completed: false },
 
-                    ]
-                },
-                {
-                    key: 2,
-                    videos: [
-                        { key: 1, completed: false },
-                        { key: 2, completed: false },
-                        { key: 3, completed: false },
 
-                    ]
-                },
-                {
-                    key: 3,
-                    videos: [
-                        { key: 1, completed: false },
-                        { key: 2, completed: false },
-                        { key: 3, completed: false },
-
-                    ]
-                },
-            ]
-        },
-        {
-            courseID: 2,
-            modules: [
-                {
-                    key: 1,
-                    videos: [
-                        { key: 1, completed: false },
-                        { key: 2, completed: false },
-                        { key: 3, completed: false },
-
-                    ]
-                },
-                {
-                    key: 2,
-                    videos: [
-                        { key: 1, completed: false },
-                        { key: 2, completed: false },
-                        { key: 3, completed: false },
-                        { key: 4, completed: false },
-
-                    ]
-                },
-                {
-                    key: 3,
-                    videos: [
-                        { key: 1, completed: false },
-                        { key: 2, completed: false },
-                        { key: 3, completed: false },
-
-                    ]
-                },
-            ]
-        },
-    ]
 
 
     //Function to add users to database MONGO DB
     const saveUserToDb = (email, displayName, method) => {
+        const courses = [
+            {
+                courseID: 1,
+                completed: '1/0'
+            },
+            {
+                courseID: 2,
+                completed: '1/0'
+            },
+        ]
         const user = { email, displayName, courses };
         fetch('http://localhost:8000/users', {
             method: method,

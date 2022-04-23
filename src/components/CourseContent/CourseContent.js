@@ -150,15 +150,16 @@ const CourseContent = () => {
                 video.link = video[`video${index + 1}link`];
                 video.duration = video[`video${index + 1}duration`];
 
-                delete video[`video${index + 1}name`];
-                delete video[`video${index + 1}link`];
-                delete video[`video${index + 1}duration`];
+                // delete video[`video${index + 1}name`];
+                // delete video[`video${index + 1}link`];
+                // delete video[`video${index + 1}duration`];
             })
             const module = {
                 key: course.modules.length + 1,
                 title: instructorNewModule,
                 videos: instructorVideos
             }
+
 
             fetch(`http://localhost:8000/user/${cID}/new-modules`, {
                 method: 'POST',

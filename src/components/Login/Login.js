@@ -7,7 +7,7 @@ import useAuth from '../../hooks/useAuth';
 
 const Login = () => {
     const [loginData, setLoginData] = useState({});
-    const { loginUser, signInWithGoogle } = useAuth();
+    const { loginUser } = useAuth();
 
 
     const history = useHistory();
@@ -79,7 +79,7 @@ const Login = () => {
                                     <i className="fab fa-facebook-f"></i>
                                 </button>
 
-                                <button onClick={() => signInWithGoogle(history)} type="button" className="btn btn-outline-success rounded-circle mx-1">
+                                <button type="button" className="btn btn-outline-success rounded-circle mx-1">
                                     <i className="fab fa-google"></i>
                                 </button>
 
