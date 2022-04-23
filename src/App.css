@@ -133,9 +133,9 @@ input.form-control, textarea.form-control {
 }
 
 .progress-bar {
-  color: #002019 !important;
+  color: white !important;
 }
 
 .progress-bar.bg-success {
-  background-color: #79F8DC !important;
+  background-color: #2A4A5F !important;
 }

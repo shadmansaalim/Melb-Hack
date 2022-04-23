@@ -15,6 +15,7 @@ const CourseContent = () => {
     const [isLoading, setIsLoading] = useState(true);
     const { courseID, courseParam, moduleID, videoID } = useParams();
     const { user, instructor } = useAuth();
+    const [progress, setProgress] = useState(0);
 
 
     const cID = parseInt(courseID.substring(6));
@@ -46,8 +47,13 @@ const CourseContent = () => {
                 const video = module.videos.find(video => video.key == vID);
                 setModule(module);
                 setCurrentVideo(video);
+
+                fetch(`http://localhost:8000/users/progress/${user.email}/${cID}`)
+                    .then(res => res.json())
+                    .then(data => setProgress(data))
             })
             .finally(() => setIsLoading(false));
+
 
     }, [courseID, courseParam, moduleID, videoID])
 
@@ -360,8 +366,8 @@ const CourseContent = () => {
 
                                     <Col className="col-12 col-lg-4">
                                         <div className="d-flex justify-content-between align-items-start mb-3">
-                                            <h5 className="mb-0 fw-bold">Course Content</h5>
-                                            <ProgressBar className="w-50 mb-0" variant="success" now={60} label={`${60}%`} />
+                                            <h5 className="mb-0 fw-bold">Course Progress</h5>
+                                            <ProgressBar className="w-50 mb-0" variant="success" now={progress} label={`${progress}%`} />
                                         </div>
                                         <div className="course-sidebar">
                                             <input id="search" placeholder="Search for module"></input>
