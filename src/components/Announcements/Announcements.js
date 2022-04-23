@@ -14,7 +14,7 @@ const Announcements = () => {
             },
             {
                 instuctor: "Instructor name",
-                title: "Please stop asking your teacher to go to the toilet during online class.",
+                title: "Stop trying to rick roll out instructors",
                 body: "According to all known laws of aviation, there is no way that a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway.",
             },
             {

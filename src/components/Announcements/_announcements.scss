@@ -27,6 +27,8 @@
         padding: 2.5em 2em;
         transform: translateY(0);
         transition: all 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        min-height: 100%;
+        
         &:hover {
             transform: translateY(-1em);
         }
