@@ -112,8 +112,30 @@ body{
   text-align: center;
 }
 
-input.form-control {
+input.form-control, textarea.form-control {
   border-radius: 0.65em !important;
   border-color: #DAE5E0 !important;
   /* border-width: 0.15em !important; */
+}
+
+/* .btn {
+  border-radius: 0.7em !important;
+  padding: 0.85em 1.5em !important;
+} */
+
+.progress {
+  display: flex;
+  height: 1rem;
+  overflow: hidden;
+  font-size: .75rem;
+  background-color: #DAE5E0 !important;
+  border-radius: 1rem !important;
+}
+
+.progress-bar {
+  color: #002019 !important;
+}
+
+.progress-bar.bg-success {
+  background-color: #79F8DC !important;
 }

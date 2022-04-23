@@ -1,8 +1,17 @@
 .course{
     height: 100% !important;
+    border-radius: 1em;
 }
 
+.course .btn {
+    margin-top: 1em
+}
+
+.course .card-body {
+    margin-top: 0.6em
+}
 
 .course-img{
     height: 220px;
+    border-radius: 1em 1em 0 0;
 }

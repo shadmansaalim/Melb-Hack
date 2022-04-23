@@ -14,12 +14,12 @@ const Course = ({ course }) => {
     }
     return (
         <Col>
-            <Card className="rounded-3 course">
+            <Card className="course">
                 <Card.Img className="course-img" variant="top" src={course.image ? course.image : cardImage} />
                 <Card.Body>
                     <Card.Title className="text-start">{name}</Card.Title>
                     <Card.Text>
-                        <span className="d-flex align-items-center my-3">
+                        <span className="d-flex align-items-center my-3 gap-2">
                             <p className="m-0 me-2 text-muted">Progress</p>
                             <ProgressBar className="w-100" variant="success" now={60} label={`${60}%`} />
                         </span>
