@@ -1,15 +1,9 @@
 #announcements {
     text-align: left;
 
-    h1 {
-        margin-bottom: 1em;
-    }
-
     .instuctor {
         display: flex;
         align-items: center;
-        gap: 1em;
-        width: 10em;
         
         img {
             width: 2.5em;
@@ -23,7 +17,7 @@
 
     .a-cards .card-wrap {
         border-radius: 10px;
-        background: #EDF5F1;
+        background: #2A4A5F;
         padding: 2.5em 2em;
         transform: translateY(0);
         transition: all 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -37,7 +31,7 @@
     .a-heading {
         gap: 2em;
         display: flex;
-        align-items: flex-end;
+        align-items: flex-start;
         margin-bottom: 1.25em;
     }
 }

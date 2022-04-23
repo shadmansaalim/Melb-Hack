@@ -199,7 +199,7 @@ const CourseContent = () => {
                                         instructor
                                         &&
                                         <>
-                                            <button onClick={() => setModalShow(true)} className="btn btn-lg add-modules-btn my-0 mt-3 mt-lg-0">Add Modules <FontAwesomeIcon icon={faUpload} /></button>
+                                            <button onClick={() => setModalShow(true)} className="btn btn-lg add-instructor-btn my-0 mt-3 mt-lg-0">Add Modules <FontAwesomeIcon icon={faUpload} /></button>
 
 
                                             <Modal id="add-module-modal" show={modalShow} fullscreen={true} onHide={() => setModalShow(false)}>
