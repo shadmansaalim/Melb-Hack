@@ -44,7 +44,6 @@ const CourseContent = () => {
 
 
     useEffect(() => {
-
         fetch(`http://localhost:8000/course/${cID}`)
             .then(res => res.json())
             .then(data => {

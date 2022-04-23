@@ -12,7 +12,7 @@ const Header = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto d-flex align-items-center">
                         <Nav.Link className="text-dark me-0 me-lg-2" href="#home">My Courses</Nav.Link>
-                        <Nav.Link className="text-dark me-0 me-lg-2" href="#link">Announcements</Nav.Link>
+                        <Nav.Link className="text-dark me-0 me-lg-2" href="/announcements">Announcements</Nav.Link>
 
                         <NavDropdown title={<img src={profile} alt='' width='40' height='40' />} id="profile-dropdown">
                             <NavDropdown.Item eventKey="4.0" disabled>Jane Doe</NavDropdown.Item>

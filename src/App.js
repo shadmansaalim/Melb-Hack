@@ -8,6 +8,7 @@ import {
 import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
 import Dashboard from './components/Dashboard/Dashboard';
+import Announcements from './components/Announcements/Announcements';
 import CourseContent from './components/CourseContent/CourseContent';
 import ContextProvider from './context/ContextProvider';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
@@ -28,6 +29,9 @@ function App() {
             </PrivateRoute>
             <PrivateRoute exact path="/dashboard">
               <Dashboard></Dashboard>
+            </PrivateRoute>
+            <PrivateRoute exact path="/announcements">
+              <Announcements></Announcements>
             </PrivateRoute>
             <PrivateRoute exact path="/:courseID/:courseParam/:moduleID/:videoID">
               <CourseContent></CourseContent>
