@@ -1,3 +1,41 @@
 #announcements {
+    text-align: left;
+
+    h1 {
+        margin-bottom: 1em;
+    }
+
+    .instuctor {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+        width: 10em;
+        
+        img {
+            width: 2.5em;
+            border-radius: 100%;
+        }
+    }
+
+    > .container {
+        margin-top: 3em;
+    }
+
+    .a-cards .card-wrap {
+        border-radius: 10px;
+        background: #EDF5F1;
+        padding: 2.5em 2em;
+        transform: translateY(0);
+        transition: all 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        &:hover {
+            transform: translateY(-1em);
+        }
+    }
     
+    .a-heading {
+        gap: 2em;
+        display: flex;
+        align-items: flex-end;
+        margin-bottom: 1.25em;
+    }
 }
