@@ -107,3 +107,9 @@ body{
 .swal-modal .swal-text {
   text-align: center;
 }
+
+input.form-control {
+  border-radius: 0.65em !important;
+  border-color: #DAE5E0 !important;
+  /* border-width: 0.15em !important; */
+}

@@ -7,6 +7,19 @@
     color: white;
 }
 
+#add-module-modal {
+    padding: 2em;
+
+    > div {
+        border-radius: 15px;
+    }
+
+    .video-title .form-floating {
+        width: 100%;
+        margin-right: 1.5em;
+    }
+}
+
 .course-sidebar {
     background: #EFF2EF;
 
