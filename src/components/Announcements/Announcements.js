@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBullhorn } from '@fortawesome/free-solid-svg-icons';
 import useAuth from '../../hooks/useAuth';
 import Announcement from './Announcement';
+import swal from 'sweetalert';
 
 
 
@@ -17,30 +18,38 @@ function AddAnnouncementModal(props) {
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
-            <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    Publish Announcement
-                </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <Container>
-                    <Form>
+            <Form onSubmit={props.handleOnSubmit}>
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                        Publish Announcement
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Container>
+
                         <FloatingLabel controlId="floatingTextarea" label="Announcement Title" className="mb-3">
-                            <Form.Control placeholder="Leave a comment here" />
+                            <Form.Control
+                                onBlur={props.handleOnBlur}
+                                name="title"
+                                onB
+                                placeholder="Leave a comment here" />
                         </FloatingLabel>
                         <FloatingLabel controlId="floatingTextarea2" label="Announcement Body">
                             <Form.Control
+                                onBlur={props.handleOnBlur}
+                                name="body"
                                 as="textarea"
                                 placeholder="Leave a comment here"
                                 style={{ height: '100px' }}
                             />
                         </FloatingLabel>
-                    </Form>
-                </Container>
-            </Modal.Body>
-            <Modal.Footer>
-                <button className="btn btn-success" onClick={props.onHide}>Publish Announcement <FontAwesomeIcon icon={faBullhorn} /></button>
-            </Modal.Footer>
+
+                    </Container>
+                </Modal.Body>
+                <Modal.Footer>
+                    <button type="submit" className="btn btn-success">Publish Announcement <FontAwesomeIcon icon={faBullhorn} /></button>
+                </Modal.Footer>
+            </Form>
         </Modal>
     );
 }
@@ -50,7 +59,7 @@ function AddAnnouncementModal(props) {
 
 const Announcements = () => {
     const { user, instructor } = useAuth();
-    const [modalShow, setModalShow] = React.useState(false);
+    const [modalShow, setModalShow] = useState(false);
     const [announcements, setAnnouncements] = useState([]);
 
     useEffect(() => {
@@ -58,6 +67,41 @@ const Announcements = () => {
             .then(res => res.json())
             .then(data => setAnnouncements(data));
     }, [])
+
+
+    const [announcementData, setAnnouncementData] = useState({});
+
+
+    const handleOnBlur = e => {
+        const field = e.target.name;
+        const value = e.target.value;
+        const newAnnouncementData = { ...announcementData };
+        newAnnouncementData[field] = value;
+        setAnnouncementData(newAnnouncementData);
+    }
+
+    const handleOnSubmit = (e) => {
+        e.preventDefault();
+        if (instructor) {
+            announcementData.instructor = user.displayName;
+            const date = new Date()
+            announcementData.date = date.toLocaleDateString();
+            fetch(`http://localhost:8000/announcements`, {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(announcementData)
+            })
+                .then(res => res.json())
+                .then(result => {
+                    if (result.insertedId) {
+                        setModalShow(false);
+                        swal("Announcement Published Successfully!", "Students will be able to view the announcement now", "success");
+                    }
+                })
+        }
+    }
 
 
     return (
@@ -77,6 +121,8 @@ const Announcements = () => {
                                         <button onClick={() => setModalShow(true)} className="btn btn-success my-0 mt-3 mt-lg-0">Add Announcement <FontAwesomeIcon icon={faBullhorn} /></button>
 
                                         <AddAnnouncementModal
+                                            handleOnBlur={handleOnBlur}
+                                            handleOnSubmit={handleOnSubmit}
                                             show={modalShow}
                                             onHide={() => setModalShow(false)}
                                         />
