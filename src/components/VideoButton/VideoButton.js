@@ -5,14 +5,18 @@ import { useHistory } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 
 const VideoButton = ({ moduleID, course, video }) => {
-    const { user } = useAuth();
+    const { user, instructor } = useAuth();
     const { courseID, param } = course;
     const { key, name, duration } = video;
     const [currentVideoCompleted, setCurrentVideoCompleted] = useState(false);
     const history = useHistory();
 
     const openModule = () => {
-        if (currentVideoCompleted) {
+        if (instructor) {
+            history.push(`/course${courseID}/${param}/module${moduleID}/video${key}`);
+            window.location.reload();
+        }
+        else if (currentVideoCompleted) {
             history.push(`/course${courseID}/${param}/module${moduleID}/video${key}`);
             window.location.reload();
         }
@@ -82,7 +86,7 @@ const VideoButton = ({ moduleID, course, video }) => {
         <button className="video-btn" onClick={openModule}>
             <span className="d-flex align-items-center">
                 {
-                    currentVideoCompleted
+                    currentVideoCompleted || instructor
                         ?
                         <FontAwesomeIcon color="#006B5A" className="me-1" icon={faCircleCheck} />
                         :
