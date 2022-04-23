@@ -207,8 +207,8 @@ const CourseContent = () => {
                         <Header></Header>
                         <div className="text-start my-5">
                             <Container>
-                                <div className="d-flex flex-column flex-lg-row justify-content-between align-items-start mb-4">
-                                    <h2 className="fw-bold my-0">{course.name}</h2>
+                                <div className="d-flex flex-column flex-md-row justify-content-between align-items-start mb-4">
+                                    <h2 className="fw-bold my-0 course-name">{course.name}</h2>
 
 
 
@@ -217,7 +217,7 @@ const CourseContent = () => {
                                         instructor
                                         &&
                                         <>
-                                            <button onClick={() => setModalShow(true)} className="btn btn-lg add-instructor-btn my-0 mt-3 mt-lg-0">Add Modules <FontAwesomeIcon icon={faUpload} /></button>
+                                            <button onClick={() => setModalShow(true)} className="btn btn-lg add-instructor-btn my-0 mt-3 mt-md-0">Add Modules <FontAwesomeIcon icon={faUpload} /></button>
 
 
                                             <Modal id="add-module-modal" show={modalShow} fullscreen={true} onHide={() => setModalShow(false)}>
@@ -225,84 +225,35 @@ const CourseContent = () => {
                                                     <Modal.Title>{course.name}</Modal.Title>
                                                 </Modal.Header>
                                                 <Modal.Body>
-                                                    <Container>
-                                                        <Form onSubmit={handlePublishModule}>
-                                                            <FloatingLabel
-                                                                controlId="module-title"
-                                                                label="Name of module"
-                                                                className="mb-3"
-                                                            >
-                                                                <Form.Control
-                                                                    required
-                                                                    onBlur={handleOnBlurModule}
-                                                                    name="title"
-                                                                    type="text" placeholder="Advance Programming Techniques" />
-                                                            </FloatingLabel>
 
-                                                            <div className="course-sidebar">
-                                                                <div className="modules">
-                                                                    <Accordion defaultActiveKey="1">
-                                                                        {
-                                                                            instructorVideos.map((video, index) => <Card>
-                                                                                <Card.Header type="button"
-                                                                                    className="d-flex justify-content-between align-items-center video-title" >
-                                                                                    <FloatingLabel
-                                                                                        controlId="video-title"
-                                                                                        label={"Name of video number " + (index + 1)}
-                                                                                    >
-                                                                                        <Form.Control
-                                                                                            required
-                                                                                            onBlur={(e) => handleOnBlur(e, index + 1)}
-                                                                                            name={`video${index + 1}name`}
-                                                                                            type="text"
-                                                                                            placeholder="C++ basics" />
-                                                                                    </FloatingLabel>
-                                                                                </Card.Header>
-                                                                                <Accordion.Collapse eventKey="1">
-                                                                                    <Card.Body>
-                                                                                        <Form.Group className="mb-3" controlId="video-link">
-                                                                                            <Form.Label>Video or Quiz link</Form.Label>
-                                                                                            <Form.Control
-                                                                                                required
-                                                                                                onBlur={(e) => handleOnBlur(e, index + 1)}
-                                                                                                name={`video${index + 1}link`}
-                                                                                                type="text"
-                                                                                                placeholder="Embedded Link" />
-                                                                                        </Form.Group>
-                                                                                        <Form.Group className="mb-3" controlId="video-duration">
-                                                                                            <Form.Label>Duration</Form.Label>
-                                                                                            <Form.Control
-                                                                                                required
-                                                                                                onBlur={(e) => handleOnBlur(e, index + 1)}
-                                                                                                name={`video${index + 1}duration`}
-                                                                                                type="text" placeholder="Duration of video" />
-                                                                                        </Form.Group>
-                                                                                    </Card.Body>
-                                                                                </Accordion.Collapse>
-                                                                            </Card>)
-                                                                        }
-                                                                        <Button variant="outline-dark" onClick={addNewVideo}>
-                                                                            Add video <FontAwesomeIcon icon={faCirclePlay} />
-                                                                        </Button>
+                                                    <Form onSubmit={handlePublishModule}>
+                                                        <FloatingLabel
+                                                            controlId="module-title"
+                                                            label="Name of module"
+                                                            className="mb-3"
+                                                        >
+                                                            <Form.Control
+                                                                required
+                                                                onBlur={handleOnBlurModule}
+                                                                name="title"
+                                                                type="text" placeholder="Advance Programming Techniques" />
+                                                        </FloatingLabel>
 
-                                                                    </Accordion>
-                                                                </div>
-                                                            </div>
-
-                                                            <div className="course-sidebar mt-4">
-                                                                <div className="modules">
-                                                                    <Accordion defaultActiveKey="1">
-                                                                        <Card>
+                                                        <div className="course-sidebar">
+                                                            <div className="modules">
+                                                                <Accordion defaultActiveKey="1">
+                                                                    {
+                                                                        instructorVideos.map((video, index) => <Card>
                                                                             <Card.Header type="button"
                                                                                 className="d-flex justify-content-between align-items-center video-title" >
                                                                                 <FloatingLabel
                                                                                     controlId="video-title"
-                                                                                    label={"Quiz Title"}
+                                                                                    label={"Name of video number " + (index + 1)}
                                                                                 >
                                                                                     <Form.Control
                                                                                         required
-                                                                                        onBlur={handleOnBlurQuiz}
-                                                                                        name="name"
+                                                                                        onBlur={(e) => handleOnBlur(e, index + 1)}
+                                                                                        name={`video${index + 1}name`}
                                                                                         type="text"
                                                                                         placeholder="C++ basics" />
                                                                                 </FloatingLabel>
@@ -310,33 +261,82 @@ const CourseContent = () => {
                                                                             <Accordion.Collapse eventKey="1">
                                                                                 <Card.Body>
                                                                                     <Form.Group className="mb-3" controlId="video-link">
-                                                                                        <Form.Label>Quiz link</Form.Label>
+                                                                                        <Form.Label>Video or Quiz link</Form.Label>
                                                                                         <Form.Control
                                                                                             required
-                                                                                            onBlur={handleOnBlurQuiz}
-                                                                                            name="link"
+                                                                                            onBlur={(e) => handleOnBlur(e, index + 1)}
+                                                                                            name={`video${index + 1}link`}
                                                                                             type="text"
                                                                                             placeholder="Embedded Link" />
                                                                                     </Form.Group>
                                                                                     <Form.Group className="mb-3" controlId="video-duration">
-                                                                                        <Form.Label>Duration to complete quiz</Form.Label>
+                                                                                        <Form.Label>Duration</Form.Label>
                                                                                         <Form.Control
                                                                                             required
-                                                                                            onBlur={handleOnBlurQuiz}
-                                                                                            name="duration"
-                                                                                            type="text" placeholder="Duration" />
+                                                                                            onBlur={(e) => handleOnBlur(e, index + 1)}
+                                                                                            name={`video${index + 1}duration`}
+                                                                                            type="text" placeholder="Duration of video" />
                                                                                     </Form.Group>
                                                                                 </Card.Body>
                                                                             </Accordion.Collapse>
-                                                                        </Card>
-                                                                    </Accordion>
-                                                                </div>
+                                                                        </Card>)
+                                                                    }
+                                                                    <Button variant="outline-dark" onClick={addNewVideo}>
+                                                                        Add video <FontAwesomeIcon icon={faCirclePlay} />
+                                                                    </Button>
+
+                                                                </Accordion>
                                                             </div>
-                                                            <button className="btn btn-success mt-3" type="submit">
-                                                                Publish Module
-                                                            </button>
-                                                        </Form>
-                                                    </Container>
+                                                        </div>
+
+                                                        <div className="course-sidebar mt-4">
+                                                            <div className="modules">
+                                                                <Accordion defaultActiveKey="1">
+                                                                    <Card>
+                                                                        <Card.Header type="button"
+                                                                            className="d-flex justify-content-between align-items-center video-title" >
+                                                                            <FloatingLabel
+                                                                                controlId="video-title"
+                                                                                label={"Quiz Title"}
+                                                                            >
+                                                                                <Form.Control
+                                                                                    required
+                                                                                    onBlur={handleOnBlurQuiz}
+                                                                                    name="name"
+                                                                                    type="text"
+                                                                                    placeholder="C++ basics" />
+                                                                            </FloatingLabel>
+                                                                        </Card.Header>
+                                                                        <Accordion.Collapse eventKey="1">
+                                                                            <Card.Body>
+                                                                                <Form.Group className="mb-3" controlId="video-link">
+                                                                                    <Form.Label>Quiz link</Form.Label>
+                                                                                    <Form.Control
+                                                                                        required
+                                                                                        onBlur={handleOnBlurQuiz}
+                                                                                        name="link"
+                                                                                        type="text"
+                                                                                        placeholder="Embedded Link" />
+                                                                                </Form.Group>
+                                                                                <Form.Group className="mb-3" controlId="video-duration">
+                                                                                    <Form.Label>Duration to complete quiz</Form.Label>
+                                                                                    <Form.Control
+                                                                                        required
+                                                                                        onBlur={handleOnBlurQuiz}
+                                                                                        name="duration"
+                                                                                        type="text" placeholder="Duration" />
+                                                                                </Form.Group>
+                                                                            </Card.Body>
+                                                                        </Accordion.Collapse>
+                                                                    </Card>
+                                                                </Accordion>
+                                                            </div>
+                                                        </div>
+                                                        <button className="btn btn-success mt-3" type="submit">
+                                                            Publish Module
+                                                        </button>
+                                                    </Form>
+
                                                 </Modal.Body>
                                             </Modal>
 

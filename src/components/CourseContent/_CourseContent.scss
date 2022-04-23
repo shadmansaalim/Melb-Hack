@@ -10,6 +10,10 @@
 #add-module-modal {
     padding: 2em;
 
+    .modal-body{
+        padding: 2.5em !important;
+    }
+
     > div {
         border-radius: 15px;
     }
@@ -60,7 +64,7 @@
 
             .card-header{
                 background: #DAE5E0 !important;
-                padding: 1.2em 1.5em !important;  
+                padding: 1.2em 1em !important;  
                 border: 0;
             }
 
@@ -97,4 +101,29 @@
 .video-control-btns{
     width: 120px;
     height: 40px;
+}
+
+@media only screen and (max-width: 688px){
+    #add-module-modal{
+        padding: 0em !important;
+
+        .modal-body{
+            padding: 1em !important;
+        }
+    }
+    .course-name{
+        font-size: 20px !important;
+    }
+    .modules{
+        padding: 0em !important;
+    }
+    .card-body{
+        padding: 0.3em !important;
+    }
+}
+
+/* Media Query For Ipad/Tablets */
+
+@media (min-width: 689px) and (max-width: 1024px){
+
 }

@@ -15,8 +15,8 @@ const Header = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto d-flex align-items-center">
-                        <Nav.Link className="text-dark me-0 me-lg-2" href="/dashboard">My Courses</Nav.Link>
-                        <Nav.Link className="text-dark me-0 me-lg-2" href="/announcements">Announcements</Nav.Link>
+                        <Nav.Link className="text-dark me-0 me-lg-2 my-0" href="/dashboard">My Courses</Nav.Link>
+                        <Nav.Link className="text-dark me-0 me-lg-2 my-0" href="/announcements">Announcements</Nav.Link>
 
                         <NavDropdown title={<img src={profile} alt='' width='40' height='40' />} id="profile-dropdown">
                             <NavDropdown.Item eventKey="4.0" disabled>{user.displayName}</NavDropdown.Item>
