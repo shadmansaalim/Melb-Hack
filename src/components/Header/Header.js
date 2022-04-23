@@ -20,7 +20,7 @@ const Header = () => {
                             <NavDropdown.Item eventKey="4.1">Profile</NavDropdown.Item>
 
                             <NavDropdown.Item eventKey="4.2">Logout</NavDropdown.Item>
-                            <NavDropdown.Item eventKey="4.3">Instructors</NavDropdown.Item>
+                            <NavDropdown.Item eventKey="4.3" href="/instructors">Instructors</NavDropdown.Item>
                         </NavDropdown>
 
                     </Nav>

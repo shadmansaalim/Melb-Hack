@@ -52,6 +52,7 @@
             background: #FAFDFA;
             border-radius: 14px;
             margin-bottom: 8px;
+            border: 0;
 
             > * {
                 border-radius: 14px;
@@ -60,6 +61,7 @@
             .card-header{
                 background: #DAE5E0 !important;
                 padding: 1.2em 1.5em !important;  
+                border: 0;
             }
 
             .accordion-header {
