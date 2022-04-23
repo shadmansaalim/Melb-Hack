@@ -9,7 +9,37 @@ const Instructors = () => {
             {
                 name: "Albert Einstein",
                 profile_pic: null,
-                biography: "German-born theoretical physicist, widely acknowledged to be one of the greatest and most influential physicists of all time.
+                biography: "German-born theoretical physicist, widely acknowledged to be one of the greatest and most influential physicists of all time."
+            },
+            {
+                name: "Albert Einstein",
+                profile_pic: null,
+                biography: "German-born theoretical physicist, widely acknowledged to be one of the greatest and most influential physicists of all time."
+            },
+            {
+                name: "Albert Einstein",
+                profile_pic: null,
+                biography: "German-born theoretical physicist, widely acknowledged to be one of the greatest and most influential physicists of all time."
+            },
+            {
+                name: "Albert Einstein",
+                profile_pic: null,
+                biography: "German-born theoretical physicist, widely acknowledged to be one of the greatest and most influential physicists of all time."
+            },
+            {
+                name: "Albert Einstein",
+                profile_pic: null,
+                biography: "German-born theoretical physicist, widely acknowledged to be one of the greatest and most influential physicists of all time."
+            },
+            {
+                name: "Albert Einstein",
+                profile_pic: null,
+                biography: "German-born theoretical physicist, widely acknowledged to be one of the greatest and most influential physicists of all time."
+            },
+            {
+                name: "Albert Einstein",
+                profile_pic: null,
+                biography: "German-born theoretical physicist, widely acknowledged to be one of the greatest and most influential physicists of all time."
             },
         ]
     }
