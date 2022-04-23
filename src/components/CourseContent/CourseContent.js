@@ -48,9 +48,11 @@ const CourseContent = () => {
                 setModule(module);
                 setCurrentVideo(video);
 
-                fetch(`http://localhost:8000/users/progress/${user.email}/${cID}`)
-                    .then(res => res.json())
-                    .then(data => setProgress(data))
+                if (!instructor) {
+                    fetch(`http://localhost:8000/users/progress/${user.email}/${cID}`)
+                        .then(res => res.json())
+                        .then(data => setProgress(data))
+                }
             })
             .finally(() => setIsLoading(false));
 
@@ -367,7 +369,7 @@ const CourseContent = () => {
                                     <Col className="col-12 col-lg-4">
                                         <div className="d-flex justify-content-between align-items-start mb-3">
                                             <h5 className="mb-0 fw-bold">Course Progress</h5>
-                                            <ProgressBar className="w-50 mb-0" variant="success" now={progress} label={`${progress}%`} />
+                                            <ProgressBar className="w-50 mb-0" variant="success" now={instructor ? 100 : progress} label={`${instructor ? 100 : progress}%`} />
                                         </div>
                                         <div className="course-sidebar">
                                             <input id="search" placeholder="Search for module"></input>

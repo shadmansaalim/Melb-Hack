@@ -9,7 +9,7 @@ const Course = ({ course }) => {
     const { name, param, courseID } = course;
     const [progress, setProgress] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
-    const { user } = useAuth();
+    const { user, instructor } = useAuth();
     const history = useHistory();
 
     const continueCourse = () => {
@@ -18,11 +18,12 @@ const Course = ({ course }) => {
     }
 
     useEffect(() => {
-        fetch(`http://localhost:8000/users/progress/${user.email}/${courseID}`)
-            .then(res => res.json())
-            .then(data => setProgress(data))
-            .finally(() => setIsLoading(false));
-
+        if (!instructor) {
+            fetch(`http://localhost:8000/users/progress/${user.email}/${courseID}`)
+                .then(res => res.json())
+                .then(data => setProgress(data))
+                .finally(() => setIsLoading(false));
+        }
     }, [])
 
 
@@ -39,7 +40,7 @@ const Course = ({ course }) => {
                             <Card.Text>
                                 <span className="d-flex align-items-center mt-3 mb-2 gap-2">
                                     <p className="m-0 me-2 text-muted">Progress</p>
-                                    <ProgressBar className="w-100" variant="success" now={progress} label={`${progress}%`} />
+                                    <ProgressBar className="w-100" variant="success" now={instructor ? 100 : progress} label={`${instructor ? 100 : progress}%`} />
                                 </span>
                                 <button className="w-100 btn btn-success rounded-pill" onClick={continueCourse}>Continue Course</button>
                             </Card.Text>
