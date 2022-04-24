@@ -66,7 +66,7 @@ const useFirebase = () => {
                         localStorage.setItem('token', token)
 
                     })
-                fetch(`http://localhost:8000/users/${user.email}`)
+                fetch(`https://still-basin-68719.herokuapp.com/users/${user.email}`)
                     .then(res => res.json())
                     .then(data => {
                         if (data.instructor) {
@@ -154,7 +154,7 @@ const useFirebase = () => {
             },
         ]
         const user = { email, displayName, courses };
-        fetch('http://localhost:8000/users', {
+        fetch('https://still-basin-68719.herokuapp.com/users', {
             method: method,
             headers: {
                 'content-type': 'application/json'

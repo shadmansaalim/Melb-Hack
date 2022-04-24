@@ -8,7 +8,7 @@ const Dashboard = () => {
     const [courses, setCourses] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8000/courses')
+        fetch('https://still-basin-68719.herokuapp.com/courses')
             .then(res => res.json())
             .then(data => setCourses(data))
     }, [])

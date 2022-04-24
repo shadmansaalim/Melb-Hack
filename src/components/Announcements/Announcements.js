@@ -63,7 +63,7 @@ const Announcements = () => {
     const [announcements, setAnnouncements] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8000/announcements')
+        fetch('https://still-basin-68719.herokuapp.com/announcements')
             .then(res => res.json())
             .then(data => setAnnouncements(data));
     }, [])
@@ -86,7 +86,7 @@ const Announcements = () => {
             announcementData.instructor = user.displayName;
             const date = new Date()
             announcementData.date = date.toLocaleDateString();
-            fetch(`http://localhost:8000/announcements`, {
+            fetch(`https://still-basin-68719.herokuapp.com/announcements`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'

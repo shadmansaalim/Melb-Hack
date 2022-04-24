@@ -38,7 +38,7 @@ const CourseContent = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:8000/course/${cID}`)
+        fetch(`https://still-basin-68719.herokuapp.com/course/${cID}`)
             .then(res => res.json())
             .then(data => {
                 setCourse(data)
@@ -49,7 +49,7 @@ const CourseContent = () => {
                 setCurrentVideo(video);
 
                 if (!instructor) {
-                    fetch(`http://localhost:8000/users/progress/${user.email}/${cID}`)
+                    fetch(`https://still-basin-68719.herokuapp.com/users/progress/${user.email}/${cID}`)
                         .then(res => res.json())
                         .then(data => setProgress(data))
                 }
@@ -66,7 +66,7 @@ const CourseContent = () => {
             vID
         };
         if (vID != video_nums) {
-            fetch(`http://localhost:8000/user/${user.email}/completed`, {
+            fetch(`https://still-basin-68719.herokuapp.com/user/${user.email}/completed`, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json'
@@ -84,7 +84,7 @@ const CourseContent = () => {
         }
         else {
             if (mID != modules_num) {
-                fetch(`http://localhost:8000/user/${user.email}/completed`, {
+                fetch(`https://still-basin-68719.herokuapp.com/user/${user.email}/completed`, {
                     method: 'PUT',
                     headers: {
                         'content-type': 'application/json'
@@ -178,7 +178,7 @@ const CourseContent = () => {
                 videos: [...instructorVideos, quizData]
             }
 
-            fetch(`http://localhost:8000/user/${cID}/new-modules`, {
+            fetch(`https://still-basin-68719.herokuapp.com/user/${cID}/new-modules`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
