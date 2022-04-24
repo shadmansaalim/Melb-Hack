@@ -38,7 +38,7 @@ const VideoButton = ({ moduleID, course, video }) => {
                 mID,
                 vID
             }
-            fetch(`https://still-basin-68719.herokuapp.com/user/${user.email}/completed`, {
+            fetch(`http://localhost:8000/user/${user.email}/completed`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -67,7 +67,7 @@ const VideoButton = ({ moduleID, course, video }) => {
             vID
         }
         if (user.email) {
-            fetch(`https://still-basin-68719.herokuapp.com/user/${user.email}/completed`, {
+            fetch(`http://localhost:8000/user/${user.email}/completed`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
