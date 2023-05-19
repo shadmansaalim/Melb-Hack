@@ -8,9 +8,11 @@ const Dashboard = () => {
     const [courses, setCourses] = useState([]);
 
     useEffect(() => {
-        fetch('https://still-basin-68719.herokuapp.com/courses')
+        fetch('https://melb-hack-backend.onrender.com/courses')
             .then(res => res.json())
-            .then(data => setCourses(data))
+            .then(data => {
+                setCourses(data);
+            })
     }, [])
 
     return (

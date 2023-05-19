@@ -66,7 +66,7 @@ const useFirebase = () => {
                         localStorage.setItem('token', token)
 
                     })
-                fetch(`https://still-basin-68719.herokuapp.com/users/${user.email}`)
+                fetch(`https://melb-hack-backend.onrender.com/users/${user.email}`)
                     .then(res => res.json())
                     .then(data => {
                         if (data.instructor) {
@@ -154,7 +154,7 @@ const useFirebase = () => {
             },
         ]
         const user = { email, displayName, courses };
-        fetch('https://still-basin-68719.herokuapp.com/users', {
+        fetch('https://melb-hack-backend.onrender.com/users', {
             method: method,
             headers: {
                 'content-type': 'application/json'

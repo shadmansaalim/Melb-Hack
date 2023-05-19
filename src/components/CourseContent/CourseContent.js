@@ -38,7 +38,7 @@ const CourseContent = () => {
 
 
     useEffect(() => {
-        fetch(`https://still-basin-68719.herokuapp.com/course/${cID}`)
+        fetch(`https://melb-hack-backend.onrender.com/course/${cID}`)
             .then(res => res.json())
             .then(data => {
                 setCourse(data)
@@ -49,7 +49,7 @@ const CourseContent = () => {
                 setCurrentVideo(video);
 
                 if (!instructor) {
-                    fetch(`https://still-basin-68719.herokuapp.com/users/progress/${user.email}/${cID}`)
+                    fetch(`https://melb-hack-backend.onrender.com/users/progress/${user.email}/${cID}`)
                         .then(res => res.json())
                         .then(data => setProgress(data))
                 }
@@ -66,7 +66,7 @@ const CourseContent = () => {
             vID
         };
         if (vID != video_nums) {
-            fetch(`https://still-basin-68719.herokuapp.com/user/${user.email}/completed`, {
+            fetch(`https://melb-hack-backend.onrender.com/user/${user.email}/completed`, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json'
@@ -75,16 +75,14 @@ const CourseContent = () => {
             })
                 .then(res => res.json())
                 .then(result => {
-                    if (result.modifiedCount) {
-                        const vID = parseInt(videoID.substring(5)) + 1;
-                        history.push(`/${courseID}/${courseParam}/${moduleID}/video${vID}`);
-                        window.location.reload();
-                    }
+                    const vID = parseInt(videoID.substring(5)) + 1;
+                    history.push(`/${courseID}/${courseParam}/${moduleID}/video${vID}`);
+                    window.location.reload();
                 });
         }
         else {
             if (mID != modules_num) {
-                fetch(`https://still-basin-68719.herokuapp.com/user/${user.email}/completed`, {
+                fetch(`https://melb-hack-backend.onrender.com/user/${user.email}/completed`, {
                     method: 'PUT',
                     headers: {
                         'content-type': 'application/json'
@@ -178,7 +176,7 @@ const CourseContent = () => {
                 videos: [...instructorVideos, quizData]
             }
 
-            fetch(`https://still-basin-68719.herokuapp.com/user/${cID}/new-modules`, {
+            fetch(`https://melb-hack-backend.onrender.com/user/${cID}/new-modules`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
